@@ -2,10 +2,10 @@ name: Sula Wine CI-CD
 
 on:
   push:
-    branches: [ main ] # Jab bhi main branch par push hoga, ye chalega
+    branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -18,10 +18,16 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and Push Docker Image
-          # Yahan shm235/sula-wine-app ko latest tag ke saath push karenge
         run: |
           docker build -t shm235/sula-wine-app:latest .
           docker push shm235/sula-wine-app:latest
+
+  deploy-to-eks:
+    needs: build-and-push # Ye line ensure karti hai ki pehle build ho, phir deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -37,5 +43,4 @@ jobs:
         run: |
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
-          # Force restart taaki naya image pull ho sake
           kubectl rollout restart deployment/sula-wine-deployment

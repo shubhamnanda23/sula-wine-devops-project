@@ -1,48 +1,134 @@
-body {
-    background-color: #2c001e; /* Wine Red Color */
-    color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --sula-red: #58181f;
+    --sula-gold: #b4975a;
+    --sula-cream: #fcfaf7;
+    --text-dark: #2d2d2d;
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--sula-cream);
+    color: var(--text-dark);
+    line-height: 1.6;
     overflow-x: hidden;
 }
 
-.fade-in {
-    animation: fadeIn 2s ease-in;
+/* --- Hero Section --- */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
+                url('https://images.unsplash.com/photo-1504275107627-0c2ba7a43dba?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    margin-bottom: 20px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+/* --- Buttons --- */
+.btn-primary {
+    background: var(--sula-gold);
+    color: white;
+    padding: 15px 35px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    border-radius: 2px;
+    transition: var(--transition);
+    margin-top: 30px;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background: white;
+    color: var(--sula-red);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* --- Card Section --- */
+.content-section {
+    padding: 100px 10% ;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: var(--transition);
+    border-bottom: 4px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--sula-gold);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 15px;
+    color: var(--sula-red);
+}
+
+/* --- Footer --- */
+footer {
+    background: var(--sula-red);
+    color: white;
+    padding: 60px 10% 20px;
+    text-align: center;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-.floating {
-    animation: float 3s ease-in-out infinite;
-    display: inline-block;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    backdrop-filter: blur(5px);
-    margin-top: 50px;
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
-}
-
-.order-btn {
-    background-color: #ffcc00;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.order-btn:hover {
-    transform: scale(1.1);
-    background-color: #ffffff;
+/* Responsive */
+@media (max-width: 768px) {
+    .content-section { padding: 50px 5%; }
 }

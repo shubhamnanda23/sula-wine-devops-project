@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sula-wine-service
+spec:
+  selector:
+    app: sula-wine
+  ports:
+    - protocol: TCP
+      port: 80         # Baahar se is port par hit karenge
+      targetPort: 80   # Pod ke andar is port par jayega
+  type: LoadBalancer   # Ye AWS Load Balancer create karega

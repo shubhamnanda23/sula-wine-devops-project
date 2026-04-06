@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sula-wine-deployment
+  labels:
+    app: sula-wine
+spec:
+  replicas: 2 # Do pods chalenge taaki agar ek down ho toh doosra sambhaal le
+  selector:
+    matchLabels:
+      app: sula-wine
+  template:
+    metadata:
+      labels:
+        app: sula-wine
+    spec:
+      containers:
+      - name: sula-wine-container
+        # DHAYAN DEIN: Yahan apna Docker Hub username dalo (shm235/sula-wine-app:latest)
+        image: shm235/sula-wine-app:latest 
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
